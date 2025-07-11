@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed State -->
+    <item android:state_pressed="true">
+        <layer-list>
+            <!-- Outer Glow Shadow -->
+            <item>
+                <shape android:shape="oval">
+                    <gradient
+                        android:type="radial"
+                        android:gradientRadius="65dp"
+                        android:centerColor="@color/btn_connect_glow_intense"
+                        android:endColor="@android:color/transparent"/>
+                    <size android:width="130dp" android:height="130dp"/>
+                </shape>
+            </item>
+            
+            <!-- Main Button Background -->
+            <item android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp">
+                <shape android:shape="oval">
+                    <gradient
+                        android:type="linear"
+                        android:angle="135"
+                        android:startColor="@color/btn_connect_gradient_start_pressed"
+                        android:centerColor="@color/btn_connect_gradient_center_pressed"
+                        android:endColor="@color/btn_connect_gradient_end_pressed"/>
+                    <stroke 
+                        android:width="3dp" 
+                        android:color="@color/btn_connect_border_pressed"/>
+                </shape>
+            </item>
+            
+            <!-- Inner Highlight -->
+            <item android:top="12dp" android:bottom="12dp" android:left="12dp" android:right="12dp">
+                <shape android:shape="oval">
+                    <gradient
+                        android:type="radial"
+                        android:gradientRadius="40dp"
+                        android:centerColor="@color/btn_connect_highlight_pressed"
+                        android:endColor="@android:color/transparent"/>
+                </shape>
+            </item>
+            
+            <!-- Power Icon Background -->
+            <item android:top="35dp" android:bottom="35dp" android:left="35dp" android:right="35dp">
+                <shape android:shape="oval">
+                    <solid android:color="@color/btn_connect_icon_bg_pressed"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    
+    <!-- Normal State -->
+    <item>
+        <layer-list>
+            <!-- Outer Glow Shadow -->
+            <item>
+                <shape android:shape="oval">
+                    <gradient
+                        android:type="radial"
+                        android:gradientRadius="65dp"
+                        android:centerColor="@color/btn_connect_glow"
+                        android:endColor="@android:color/transparent"/>
+                    <size android:width="130dp" android:height="130dp"/>
+                </shape>
+            </item>
+            
+            <!-- Main Button Background -->
+            <item android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp">
+                <shape android:shape="oval">
+                    <gradient
+                        android:type="linear"
+                        android:angle="135"
+                        android:startColor="@color/btn_connect_gradient_start"
+                        android:centerColor="@color/btn_connect_gradient_center"
+                        android:endColor="@color/btn_connect_gradient_end"/>
+                    <stroke 
+                        android:width="3dp" 
+                        android:color="@color/btn_connect_border"/>
+                </shape>
+            </item>
+            
+            <!-- Inner Highlight -->
+            <item android:top="12dp" android:bottom="12dp" android:left="12dp" android:right="12dp">
+                <shape android:shape="oval">
+                    <gradient
+                        android:type="radial"
+                        android:gradientRadius="40dp"
+                        android:centerColor="@color/btn_connect_highlight"
+                        android:endColor="@android:color/transparent"/>
+                </shape>
+            </item>
+            
+            <!-- Power Icon Background -->
+            <item android:top="35dp" android:bottom="35dp" android:left="35dp" android:right="35dp">
+                <shape android:shape="oval">
+                    <solid android:color="@color/btn_connect_icon_bg"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

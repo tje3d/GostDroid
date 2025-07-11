@@ -84,18 +84,17 @@
                 android:layout_centerInParent="true"/>
 
             <!-- Connect/Disconnect Button -->
-            <Button
+            <ImageButton
                 android:id="@+id/btn_connect"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/btn_connect"
-                android:text="@string/btn_connect"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:elevation="12dp"
-                android:stateListAnimator="@null"/>
+                android:background="@drawable/btn_connect_professional"
+                android:src="@drawable/ic_power"
+                android:scaleType="center"
+                android:elevation="16dp"
+                android:stateListAnimator="@null"
+                android:contentDescription="@string/btn_connect"/>
 
         </RelativeLayout>
 

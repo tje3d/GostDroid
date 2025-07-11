@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ public class VpnMainActivity extends Activity implements View.OnClickListener {
     private ProfileManager mManager;
     private Profile mProfile;
     
-    private Button mBtnConnect;
+    private ImageButton mBtnConnect;
     private TextView mServerAddress;
     private TextView mGostTransportInfo;
     private TextView mConnectionStatus;
@@ -258,20 +259,17 @@ public class VpnMainActivity extends Activity implements View.OnClickListener {
         }
         
         // Update button
-        if (mStarting) {
-            mBtnConnect.setText(getString(R.string.status_connecting));
+        if (mStarting || mStopping) {
             mBtnConnect.setEnabled(false);
-        } else if (mStopping) {
-            mBtnConnect.setText(getString(R.string.status_disconnecting));
-            mBtnConnect.setEnabled(false);
+            mBtnConnect.setAlpha(0.6f);
         } else if (mRunning) {
-            mBtnConnect.setText(getString(R.string.btn_disconnect));
             mBtnConnect.setEnabled(true);
-            mBtnConnect.setBackgroundResource(R.drawable.btn_disconnect);
+            mBtnConnect.setAlpha(1.0f);
+            mBtnConnect.setBackgroundResource(R.drawable.btn_disconnect_professional);
         } else {
-            mBtnConnect.setText(getString(R.string.btn_connect));
             mBtnConnect.setEnabled(true);
-            mBtnConnect.setBackgroundResource(R.drawable.btn_connect);
+            mBtnConnect.setAlpha(1.0f);
+            mBtnConnect.setBackgroundResource(R.drawable.btn_connect_professional);
         }
         
         if (mStarting && mRunning) {

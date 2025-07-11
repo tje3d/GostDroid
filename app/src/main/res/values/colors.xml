@@ -23,11 +23,39 @@
     <color name="btn_connect_border">#0099CC</color>
     <color name="btn_connect_glow">#4D00D4FF</color>
     
+    <!-- Professional Connect Button Colors -->
+    <color name="btn_connect_gradient_start">#00E5FF</color>
+    <color name="btn_connect_gradient_center">#00D4FF</color>
+    <color name="btn_connect_gradient_end">#00B8E6</color>
+    <color name="btn_connect_gradient_start_pressed">#00B8E6</color>
+    <color name="btn_connect_gradient_center_pressed">#0099CC</color>
+    <color name="btn_connect_gradient_end_pressed">#007ACC</color>
+    <color name="btn_connect_border_pressed">#005C99</color>
+    <color name="btn_connect_highlight">#66FFFFFF</color>
+    <color name="btn_connect_highlight_pressed">#33FFFFFF</color>
+    <color name="btn_connect_glow_intense">#8000D4FF</color>
+    <color name="btn_connect_icon_bg">#1AFFFFFF</color>
+    <color name="btn_connect_icon_bg_pressed">#0DFFFFFF</color>
+    
     <!-- Disconnect Button Colors -->
     <color name="btn_disconnect_normal">#FF4757</color>
     <color name="btn_disconnect_pressed">#FF3742</color>
     <color name="btn_disconnect_border">#E63946</color>
     <color name="btn_disconnect_glow">#4DFF4757</color>
+    
+    <!-- Professional Disconnect Button Colors -->
+    <color name="btn_disconnect_gradient_start">#FF6B7A</color>
+    <color name="btn_disconnect_gradient_center">#FF4757</color>
+    <color name="btn_disconnect_gradient_end">#E63946</color>
+    <color name="btn_disconnect_gradient_start_pressed">#E63946</color>
+    <color name="btn_disconnect_gradient_center_pressed">#CC2936</color>
+    <color name="btn_disconnect_gradient_end_pressed">#B21E2B</color>
+    <color name="btn_disconnect_border_pressed">#991A26</color>
+    <color name="btn_disconnect_highlight">#66FFFFFF</color>
+    <color name="btn_disconnect_highlight_pressed">#33FFFFFF</color>
+    <color name="btn_disconnect_glow_intense">#80FF4757</color>
+    <color name="btn_disconnect_icon_bg">#1AFFFFFF</color>
+    <color name="btn_disconnect_icon_bg_pressed">#0DFFFFFF</color>
     
     <!-- Secondary Button Colors -->
     <color name="btn_secondary_normal">#1E2749</color>
