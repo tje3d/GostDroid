@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="src">Xem mã nguồn</string>
+    <string name="open_termux">Mở Termux</string>
+    <string name="advancedsettings">Cài đặt nâng cao</string>
+    <string name="advancedsettings_summary">IP máy chủ, Xác thực, Cổng, IPv6, v.v...</string>
+    <string name="open_termux_summary">Termux có thể cần thiết trong 1 số mục đích cụ thể, ví dụ như sử dụng internet miễn phí.</string>
+    <string name="src_title">Xem mã nguồn dự án trên GitLab</string>
+    <string name="adv_app_bypass">Chế độ bỏ qua</string>
+    <string name="adv_app_bypass_sum">Bật tùy chọn này để bỏ qua các ứng dụng đã chọn thay vì ủy quyền chúng</string>
+    <string name="adv_app_list">Danh sách ứng dụng</string>
+    <string name="adv_app_list_sum">Nhập tên gói của một ứng dụng vào một dòng. Xem Cài đặt -&gt; Ứng dụng để biết tên gói ứng dụng.</string>
+    <string name="adv_auto_connect">Kết nối khi khởi động</string>
+    <string name="adv_dns">Máy chủ DNS</string>
+    <string name="adv_dns_port">Cổng DNS (TCP)</string>
+    <string name="adv_per_app">Proxy cho ứng dụng</string>
+    <string name="adv_route">Lộ trình</string>
+    <string name="adv_route_all">Tất cả (Mặc định)</string>
+    <string name="adv_route_non_chn">IP không phải của Trung Quốc</string>
+    <string name="advanced">Nâng cao</string>
+    <string name="auth_password">Mật khẩu</string>
+    <string name="auth_username">Tên tài khoản</string>
+    <string name="auth_userpw">Tên người dùng &amp; Xác thực mật khẩu</string>
+    <string name="authentication">Xác thực</string>
+    <string name="channel_name">Proxy đang hoạt động</string>
+    <string name="connection">Kết nối</string>
+    <string name="err_add_prof">Failed to add profile %s</string>
+    <string name="err_del_prof">Lỗi xóa hồ sơ %s</string>
+    <string name="ipv6_proxy">IPv6</string>
+    <string name="ipv6_proxy_sum">Kích hoạt chuyển tiếp IPv6. Nếu máy chủ hỗ trợ IPv6, bạn có thể truy cập nội dung IPv6 từ mạng IPv4 khi bật tính năng này.</string>
+    <string name="notify_msg">Đã kết nối với %s</string>
+    <string name="notify_title">Đã kích hoạt proxy SOCKS5</string>
+    <string name="pdnsd_conf"> global { perm_cache=1024; cache_dir={DIR}; server_port = 8091; server_ip = 0.0.0.0; query_method=tcp_only; min_ttl=15m; max_ttl=1w; timeout=10; daemon=on; pid_file={DIR}/pdnsd.pid; } server { label= upstream; ip = {IP}; port = {PORT}; uptest = none; } rr { name=localhost; reverse=on; a=127.0.0.1; owner=localhost; soa=localhost,root.localhost,42,86400,900,86400,86400; } </string>
+    <string name="prof_add">Thêm hồ sơ</string>
+    <string name="prof_default">Mặc định</string>
+    <string name="prof_del">Xóa hồ sơ</string>
+    <string name="prof_del_confirm">Xóa hồ sơ %s?</string>
+    <string name="profile">Hồ sơ</string>
+    <string name="server_ip">IP máy chủ</string>
+    <string name="server_port">Cổng máy chủ</string>
+    <string name="switch_main">Bật/tắt proxy</string>
+    <string name="udp_gw">Cổng UDP (Từ xa)</string>
+    <string name="udp_proxy">Chuyển tiếp UDP</string>
+    <string name="udp_proxy_sum">Chuyển tiếp gói UDP tới badvpn-udpgw qua SOCKS5. Điều này cần badvpn-udpgw chạy trên máy chủ từ xa (thường listen trên 127.0.0.1) để hoạt động.</string>
+    <string name="appinfo_category">Thông tin ứng dụng</string>
+    <string name="appversion">Phiên bản ứng dụng</string>
+    <string name="compiletime">Thời gian biên dịch</string>
+</resources>
