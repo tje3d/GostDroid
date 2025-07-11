@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference
-        android:icon="@drawable/ic_gitlab"
-        android:title="@string/src"
-        android:summary="@string/src_title">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://gitlab.com/cuynu/socksdroid"/>
-    </Preference>
-    <PreferenceCategory
+        <PreferenceCategory
         android:selectable="false"
         android:title="@string/connection">
         <PreferenceScreen
@@ -119,22 +111,5 @@
                 android:singleLine="true"
                 android:dependency="use_gost"/>
         </PreferenceScreen>
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/appinfo_category">
-        <Preference
-            android:title="@string/appversion"
-            android:summary="1.0.7" />
-        <Preference
-            android:title="@string/compiletime"
-            android:summary="YYYY-MM-DD" />
-        <Preference
-            android:title="Commit"
-            android:summary="">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://gitlab.com/cuynu/socksdroid/-/commits/main/?ref_type=HEADS" />
-        </Preference>
     </PreferenceCategory>
 </PreferenceScreen>
