@@ -123,7 +123,9 @@ public class Utility {
                 .putExtra(INTENT_IPV6_PROXY, profile.hasIPv6())
                 .putExtra(INTENT_USE_GOST, profile.useGost())
                 .putExtra(INTENT_GOST_TRANSPORT, profile.getGostTransport())
-                .putExtra(INTENT_GOST_SERVER, profile.getGostServer());
+                .putExtra(INTENT_GOST_SERVER, profile.getGostServer())
+                .putExtra(INTENT_GOST_USERNAME, profile.getGostUsername())
+                .putExtra(INTENT_GOST_PASSWORD, profile.getGostPassword());
 
         if (profile.isUserPw()) {
             i.putExtra(INTENT_USERNAME, profile.getUsername())

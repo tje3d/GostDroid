@@ -71,6 +71,8 @@ public class SocksVpnService extends VpnService {
         final boolean useGost = intent.getBooleanExtra(INTENT_USE_GOST, false);
         final String gostTransport = intent.getStringExtra(INTENT_GOST_TRANSPORT);
         final String gostServer = intent.getStringExtra(INTENT_GOST_SERVER);
+        final String gostUsername = intent.getStringExtra(INTENT_GOST_USERNAME);
+        final String gostPassword = intent.getStringExtra(INTENT_GOST_PASSWORD);
 
         // Notifications on Oreo and above need a channel
         Notification.Builder builder;
@@ -109,7 +111,7 @@ public class SocksVpnService extends VpnService {
             Log.d(TAG, "fd: " + mInterface.getFd());
 
         if (mInterface != null)
-            start(mInterface.getFd(), server, port, username, passwd, dns, dnsPort, ipv6, udpgw, useGost, gostTransport, gostServer);
+            start(mInterface.getFd(), server, port, username, passwd, dns, dnsPort, ipv6, udpgw, useGost, gostTransport, gostServer, gostUsername, gostPassword);
 
         return START_STICKY;
     }
@@ -216,7 +218,7 @@ public class SocksVpnService extends VpnService {
         mInterface = b.establish();
     }
 
-    private void start(int fd, String server, int port, String user, String passwd, String dns, int dnsPort, boolean ipv6, String udpgw, boolean useGost, String gostTransport, String gostServer) {
+    private void start(int fd, String server, int port, String user, String passwd, String dns, int dnsPort, boolean ipv6, String udpgw, boolean useGost, String gostTransport, String gostServer, String gostUsername, String gostPassword) {
         // Start DNS daemon first
         Utility.makePdnsdConf(this, dns, dnsPort);
 
@@ -230,10 +232,15 @@ public class SocksVpnService extends VpnService {
             String transport = gostTransport != null ? gostTransport : "ws";
             
             if (DEBUG) {
-                Log.d(TAG, "Starting Gost tunnel with transport: " + transport + ", server: " + serverAddr);
+                Log.d(TAG, "Starting Gost tunnel with transport: " + transport + ", server: " + serverAddr + 
+                      (gostUsername != null && !gostUsername.isEmpty() ? ", username: " + gostUsername : ""));
             }
             
-            if (GostTunnel.startTunnel(transport, serverAddr)) {
+            // Use authentication if provided, otherwise use empty credentials
+            String username = (gostUsername != null) ? gostUsername : "";
+            String password = (gostPassword != null) ? gostPassword : "";
+            
+            if (GostTunnel.startTunnel(transport, serverAddr, username, password)) {
                 // Gost tunnel started successfully, now connect tun2socks to local Gost SOCKS5 proxy
                 String command = String.format(Locale.US,
                         "%s/libtun2socks.so --netif-ipaddr 26.26.26.2"

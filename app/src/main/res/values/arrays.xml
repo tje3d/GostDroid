@@ -13,10 +13,12 @@
     <string-array name="gost_transports" translatable="false">
         <item>WebSocket (ws)</item>
         <item>WebSocket Secure (wss)</item>
+        <item>SSH Tunnel (ssh)</item>
     </string-array>
 
     <string-array name="gost_transport_values" translatable="false">
         <item>ws</item>
         <item>wss</item>
+        <item>ssh</item>
     </string-array>
 </resources>

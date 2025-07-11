@@ -163,6 +163,22 @@ public class Profile {
         mPref.edit().putString(key("gost_server"), server).apply();
     }
 
+    public String getGostUsername() {
+        return mPref.getString(key("gost_username"), "");
+    }
+
+    public void setGostUsername(String username) {
+        mPref.edit().putString(key("gost_username"), username).apply();
+    }
+
+    public String getGostPassword() {
+        return mPref.getString(key("gost_password"), "");
+    }
+
+    public void setGostPassword(String password) {
+        mPref.edit().putString(key("gost_password"), password).apply();
+    }
+
     void delete() {
         mPref.edit()
                 .remove(key("server"))
@@ -183,6 +199,8 @@ public class Profile {
                 .remove(key("use_gost"))
                 .remove(key("gost_transport"))
                 .remove(key("gost_server"))
+                .remove(key("gost_username"))
+                .remove(key("gost_password"))
                 .apply();
     }
 

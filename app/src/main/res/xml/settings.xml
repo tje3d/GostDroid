@@ -102,6 +102,19 @@
                 android:summary="@string/gost_server_sum"
                 android:singleLine="true"
                 android:dependency="use_gost"/>
+            <EditTextPreference
+                android:key="gost_username"
+                android:title="@string/gost_username"
+                android:summary="@string/gost_username_sum"
+                android:singleLine="true"
+                android:dependency="use_gost"/>
+            <EditTextPreference
+                android:key="gost_password"
+                android:title="@string/gost_password"
+                android:summary="@string/gost_password_sum"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:dependency="use_gost"/>
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>

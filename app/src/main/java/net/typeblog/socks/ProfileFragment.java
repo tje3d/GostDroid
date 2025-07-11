@@ -29,7 +29,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
     
     private ListPreference mPrefProfile, mPrefRoutes, mPrefGostTransport;
     private EditTextPreference mPrefServer, mPrefPort, mPrefUsername, mPrefPassword,
-            mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefGostServer;
+            mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefGostServer, mPrefGostUsername, mPrefGostPassword;
     private AppListPreference mPrefAppList;
     private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto, mPrefUseGost;
 
@@ -133,6 +133,14 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
             mProfile.setGostServer(newValue.toString());
             resetTextN(mPrefGostServer, newValue);
             return true;
+        } else if (p == mPrefGostUsername) {
+            mProfile.setGostUsername(newValue.toString());
+            resetTextN(mPrefGostUsername, newValue);
+            return true;
+        } else if (p == mPrefGostPassword) {
+            mProfile.setGostPassword(newValue.toString());
+            resetTextN(mPrefGostPassword, newValue);
+            return true;
         } else {
             return false;
         }
@@ -159,6 +167,8 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefUseGost = (CheckBoxPreference) findPreference(PREF_USE_GOST);
         mPrefGostTransport = (ListPreference) findPreference(PREF_GOST_TRANSPORT);
         mPrefGostServer = (EditTextPreference) findPreference(PREF_GOST_SERVER);
+        mPrefGostUsername = (EditTextPreference) findPreference(PREF_GOST_USERNAME);
+        mPrefGostPassword = (EditTextPreference) findPreference(PREF_GOST_PASSWORD);
 
         mPrefProfile.setOnPreferenceChangeListener(this);
         mPrefServer.setOnPreferenceChangeListener(this);
@@ -179,6 +189,8 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefUseGost.setOnPreferenceChangeListener(this);
         mPrefGostTransport.setOnPreferenceChangeListener(this);
         mPrefGostServer.setOnPreferenceChangeListener(this);
+        mPrefGostUsername.setOnPreferenceChangeListener(this);
+        mPrefGostPassword.setOnPreferenceChangeListener(this);
     }
 
     private void reload() {
@@ -209,7 +221,9 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefDnsPort.setText(String.valueOf(mProfile.getDnsPort()));
         mPrefUDPGW.setText(mProfile.getUDPGW());
         mPrefGostServer.setText(mProfile.getGostServer());
-        resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefGostServer);
+        mPrefGostUsername.setText(mProfile.getGostUsername());
+        mPrefGostPassword.setText(mProfile.getGostPassword());
+        resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefGostServer, mPrefGostUsername, mPrefGostPassword);
 
         mPrefAppList.setValue(mProfile.getAppList());
     }

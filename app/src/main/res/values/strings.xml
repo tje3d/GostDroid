@@ -50,6 +50,10 @@
     <string name="gost_transport_sum">Select the transport protocol for Gost tunnel</string>
     <string name="gost_server">Gost Server</string>
     <string name="gost_server_sum">Optional: Specify a different server address for Gost tunnel (e.g., example.com:8080)</string>
+    <string name="gost_username">Gost Username</string>
+    <string name="gost_username_sum">Username for SSH authentication (required for SSH transport)</string>
+    <string name="gost_password">Gost Password</string>
+    <string name="gost_password_sum">Password for SSH authentication (required for SSH transport)</string>
 
     <!-- VPN-like Interface Strings -->
     <string name="btn_connect">CONNECT</string>
