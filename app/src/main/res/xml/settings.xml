@@ -112,6 +112,12 @@
                 android:entryValues="@array/gost_transport_values"
                 android:defaultValue="ws"
                 android:dependency="use_gost"/>
+            <EditTextPreference
+                android:key="gost_server"
+                android:title="@string/gost_server"
+                android:summary="@string/gost_server_sum"
+                android:singleLine="true"
+                android:dependency="use_gost"/>
         </PreferenceScreen>
     </PreferenceCategory>
 

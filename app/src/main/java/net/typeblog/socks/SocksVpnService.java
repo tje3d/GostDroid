@@ -70,6 +70,7 @@ public class SocksVpnService extends VpnService {
         final String udpgw = intent.getStringExtra(INTENT_UDP_GW);
         final boolean useGost = intent.getBooleanExtra(INTENT_USE_GOST, false);
         final String gostTransport = intent.getStringExtra(INTENT_GOST_TRANSPORT);
+        final String gostServer = intent.getStringExtra(INTENT_GOST_SERVER);
 
         // Notifications on Oreo and above need a channel
         Notification.Builder builder;
@@ -108,7 +109,7 @@ public class SocksVpnService extends VpnService {
             Log.d(TAG, "fd: " + mInterface.getFd());
 
         if (mInterface != null)
-            start(mInterface.getFd(), server, port, username, passwd, dns, dnsPort, ipv6, udpgw, useGost, gostTransport);
+            start(mInterface.getFd(), server, port, username, passwd, dns, dnsPort, ipv6, udpgw, useGost, gostTransport, gostServer);
 
         return START_STICKY;
     }
@@ -215,7 +216,7 @@ public class SocksVpnService extends VpnService {
         mInterface = b.establish();
     }
 
-    private void start(int fd, String server, int port, String user, String passwd, String dns, int dnsPort, boolean ipv6, String udpgw, boolean useGost, String gostTransport) {
+    private void start(int fd, String server, int port, String user, String passwd, String dns, int dnsPort, boolean ipv6, String udpgw, boolean useGost, String gostTransport, String gostServer) {
         // Start DNS daemon first
         Utility.makePdnsdConf(this, dns, dnsPort);
 
@@ -224,7 +225,8 @@ public class SocksVpnService extends VpnService {
 
         if (useGost) {
             // Use Gost tunnel instead of traditional tun2socks
-            String serverAddr = server + ":" + port;
+            // Use the dedicated GOST server address if provided, otherwise fall back to server:port
+            String serverAddr = (gostServer != null && !gostServer.isEmpty()) ? gostServer : server + ":" + port;
             String transport = gostTransport != null ? gostTransport : "ws";
             
             if (DEBUG) {

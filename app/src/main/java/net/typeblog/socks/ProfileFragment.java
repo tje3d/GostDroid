@@ -71,7 +71,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
 
     private ListPreference mPrefProfile, mPrefRoutes, mPrefGostTransport;
     private EditTextPreference mPrefServer, mPrefPort, mPrefUsername, mPrefPassword,
-            mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW;
+            mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW, mPrefGostServer;
     private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto, mPrefUseGost;
 
     @Override
@@ -176,6 +176,10 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
             mProfile.setGostTransport(newValue.toString());
             resetListN(mPrefGostTransport, newValue);
             return true;
+        } else if (p == mPrefGostServer) {
+            mProfile.setGostServer(newValue.toString());
+            resetTextN(mPrefGostServer, newValue);
+            return true;
         } else {
             return false;
         }
@@ -219,6 +223,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefAuto = (CheckBoxPreference) findPreference(PREF_ADV_AUTO_CONNECT);
         mPrefUseGost = (CheckBoxPreference) findPreference(PREF_USE_GOST);
         mPrefGostTransport = (ListPreference) findPreference(PREF_GOST_TRANSPORT);
+        mPrefGostServer = (EditTextPreference) findPreference(PREF_GOST_SERVER);
 
         mPrefProfile.setOnPreferenceChangeListener(this);
         mPrefServer.setOnPreferenceChangeListener(this);
@@ -238,6 +243,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefAuto.setOnPreferenceChangeListener(this);
         mPrefUseGost.setOnPreferenceChangeListener(this);
         mPrefGostTransport.setOnPreferenceChangeListener(this);
+        mPrefGostServer.setOnPreferenceChangeListener(this);
     }
 
     private void reload() {
@@ -267,7 +273,8 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefDns.setText(mProfile.getDns());
         mPrefDnsPort.setText(String.valueOf(mProfile.getDnsPort()));
         mPrefUDPGW.setText(mProfile.getUDPGW());
-        resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW);
+        mPrefGostServer.setText(mProfile.getGostServer());
+        resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefGostServer);
 
         mPrefAppList.setText(mProfile.getAppList());
     }

@@ -155,6 +155,14 @@ public class Profile {
         mPref.edit().putString(key("gost_transport"), transport).apply();
     }
 
+    public String getGostServer() {
+        return mPref.getString(key("gost_server"), "");
+    }
+
+    public void setGostServer(String server) {
+        mPref.edit().putString(key("gost_server"), server).apply();
+    }
+
     void delete() {
         mPref.edit()
                 .remove(key("server"))
@@ -174,6 +182,7 @@ public class Profile {
                 .remove(key("auto"))
                 .remove(key("use_gost"))
                 .remove(key("gost_transport"))
+                .remove(key("gost_server"))
                 .apply();
     }
 

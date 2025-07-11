@@ -55,5 +55,7 @@
     <string name="use_gost_sum">Enable Gost tunnel for advanced transport protocols like WebSocket</string>
     <string name="gost_transport">Gost Transport</string>
     <string name="gost_transport_sum">Select the transport protocol for Gost tunnel</string>
+    <string name="gost_server">Gost Server</string>
+    <string name="gost_server_sum">Optional: Specify a different server address for Gost tunnel (e.g., example.com:8080)</string>
 
 </resources>
