@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="12dp"
     android:fitsSystemWindows="true">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select a profile or create a new one"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/text_secondary"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="12dp"/>
 
     <ListView
         android:id="@+id/profiles_list"
@@ -20,23 +20,24 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:divider="@color/card_border"
-        android:dividerHeight="1dp"/>
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical"/>
 
     <LinearLayout
         android:id="@+id/btn_add_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:background="@drawable/btn_icon_background"
-        android:padding="16dp"
+        android:padding="12dp"
         android:clickable="true"
         android:focusable="true">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_add"
             android:layout_marginEnd="8dp"/>
 
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="@string/prof_add"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
     </LinearLayout>
