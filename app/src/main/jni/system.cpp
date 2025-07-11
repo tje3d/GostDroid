@@ -1,4 +1,4 @@
-#define LOG_TAG "Socksdroid"
+#define LOG_TAG "Gostdroid"
 
 #include "jni.h"
 #include <android/log.h>
