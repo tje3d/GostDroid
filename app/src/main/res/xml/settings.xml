@@ -3,15 +3,7 @@
         <PreferenceCategory
         android:selectable="false"
         android:title="@string/connection">
-        <PreferenceScreen
-            android:icon="@drawable/ic_termux"
-            android:title="@string/open_termux"
-            android:summary="@string/open_termux_summary">
-            <intent
-                android:targetPackage="com.termux"
-                android:targetClass="com.termux.HomeActivity" />
-        </PreferenceScreen>
-        <EditTextPreference
+                <EditTextPreference
             android:key="adv_app_list"
             android:title="@string/adv_app_list"
             android:summary="@string/adv_app_list_sum"

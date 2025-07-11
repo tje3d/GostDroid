@@ -4,9 +4,7 @@
     <string name="app_name">SocksDroid</string>
     <string name="advancedsettings">Advanced Settings</string>
     <string name="advancedsettings_summary">Server IP, Authentication, Ports, IPv6, etc...</string>
-    <string name="open_termux">Open Termux</string>
-    <string name="open_termux_summary">This might be needed for some purpose, such as getting free internet.</string>
-        <string name="profile">Profile</string>
+            <string name="profile">Profile</string>
     <string name="prof_default">Default</string>
         <string name="connection">Connection</string>
     <string name="server_ip">Server IP</string>
