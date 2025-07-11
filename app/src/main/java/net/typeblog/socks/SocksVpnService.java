@@ -68,6 +68,8 @@ public class SocksVpnService extends VpnService {
         final String[] appList = intent.getStringArrayExtra(INTENT_APP_LIST);
         final boolean ipv6 = intent.getBooleanExtra(INTENT_IPV6_PROXY, false);
         final String udpgw = intent.getStringExtra(INTENT_UDP_GW);
+        final boolean useGost = intent.getBooleanExtra(INTENT_USE_GOST, false);
+        final String gostTransport = intent.getStringExtra(INTENT_GOST_TRANSPORT);
 
         // Notifications on Oreo and above need a channel
         Notification.Builder builder;
@@ -106,7 +108,7 @@ public class SocksVpnService extends VpnService {
             Log.d(TAG, "fd: " + mInterface.getFd());
 
         if (mInterface != null)
-            start(mInterface.getFd(), server, port, username, passwd, dns, dnsPort, ipv6, udpgw);
+            start(mInterface.getFd(), server, port, username, passwd, dns, dnsPort, ipv6, udpgw, useGost, gostTransport);
 
         return START_STICKY;
     }
@@ -134,6 +136,9 @@ public class SocksVpnService extends VpnService {
 
         Utility.killPidFile(getFilesDir() + "/tun2socks.pid");
         Utility.killPidFile(getFilesDir() + "/pdnsd.pid");
+
+        // Stop Gost tunnel if it's running
+        GostTunnel.stopTunnel();
 
         try {
             System.jniclose(mInterface.getFd());
@@ -210,46 +215,91 @@ public class SocksVpnService extends VpnService {
         mInterface = b.establish();
     }
 
-    private void start(int fd, String server, int port, String user, String passwd, String dns, int dnsPort, boolean ipv6, String udpgw) {
+    private void start(int fd, String server, int port, String user, String passwd, String dns, int dnsPort, boolean ipv6, String udpgw, boolean useGost, String gostTransport) {
         // Start DNS daemon first
         Utility.makePdnsdConf(this, dns, dnsPort);
 
         Utility.exec(String.format(Locale.US, "%s/libpdnsd.so -c %s/pdnsd.conf",
                 getApplicationInfo().nativeLibraryDir, getFilesDir()));
 
-        String command = String.format(Locale.US,
-                "%s/libtun2socks.so --netif-ipaddr 26.26.26.2"
-                        + " --netif-netmask 255.255.255.0"
-                        + " --socks-server-addr %s:%d"
-                        + " --tunfd %d"
-                        + " --tunmtu 1500"
-                        + " --loglevel 3"
-                        + " --pid %s/tun2socks.pid"
-                        + " --sock %s/sock_path"
-                , getApplicationInfo().nativeLibraryDir, server, port, fd, getFilesDir(), getApplicationInfo().dataDir);
+        if (useGost) {
+            // Use Gost tunnel instead of traditional tun2socks
+            String serverAddr = server + ":" + port;
+            String transport = gostTransport != null ? gostTransport : "ws";
+            
+            if (DEBUG) {
+                Log.d(TAG, "Starting Gost tunnel with transport: " + transport + ", server: " + serverAddr);
+            }
+            
+            if (GostTunnel.startTunnel(transport, serverAddr)) {
+                // Gost tunnel started successfully, now connect tun2socks to local Gost SOCKS5 proxy
+                String command = String.format(Locale.US,
+                        "%s/libtun2socks.so --netif-ipaddr 26.26.26.2"
+                                + " --netif-netmask 255.255.255.0"
+                                + " --socks-server-addr 127.0.0.1:1080"  // Connect to local Gost proxy
+                                + " --tunfd %d"
+                                + " --tunmtu 1500"
+                                + " --loglevel 3"
+                                + " --pid %s/tun2socks.pid"
+                                + " --sock %s/sock_path"
+                        , getApplicationInfo().nativeLibraryDir, fd, getFilesDir(), getApplicationInfo().dataDir);
 
-        if (user != null) {
-            command += " --username " + user;
-            command += " --password " + passwd;
-        }
+                if (ipv6) {
+                    command += " --netif-ip6addr fdfe:dcba:9876::2";
+                }
 
-        if (ipv6) {
-            command += " --netif-ip6addr fdfe:dcba:9876::2";
-        }
+                command += " --dnsgw 26.26.26.1:8091";
 
-        command += " --dnsgw 26.26.26.1:8091";
+                if (DEBUG) {
+                    Log.d(TAG, command);
+                }
 
-        if (udpgw != null) {
-            command += " --udpgw-remote-server-addr " + udpgw;
-        }
+                if (Utility.exec(command) != 0) {
+                    GostTunnel.stopTunnel();
+                    stopMe();
+                    return;
+                }
+            } else {
+                Log.e(TAG, "Failed to start Gost tunnel");
+                stopMe();
+                return;
+            }
+        } else {
+            // Use traditional tun2socks approach
+            String command = String.format(Locale.US,
+                    "%s/libtun2socks.so --netif-ipaddr 26.26.26.2"
+                            + " --netif-netmask 255.255.255.0"
+                            + " --socks-server-addr %s:%d"
+                            + " --tunfd %d"
+                            + " --tunmtu 1500"
+                            + " --loglevel 3"
+                            + " --pid %s/tun2socks.pid"
+                            + " --sock %s/sock_path"
+                    , getApplicationInfo().nativeLibraryDir, server, port, fd, getFilesDir(), getApplicationInfo().dataDir);
 
-        if (DEBUG) {
-            Log.d(TAG, command);
-        }
+            if (user != null) {
+                command += " --username " + user;
+                command += " --password " + passwd;
+            }
 
-        if (Utility.exec(command) != 0) {
-            stopMe();
-            return;
+            if (ipv6) {
+                command += " --netif-ip6addr fdfe:dcba:9876::2";
+            }
+
+            command += " --dnsgw 26.26.26.1:8091";
+
+            if (udpgw != null) {
+                command += " --udpgw-remote-server-addr " + udpgw;
+            }
+
+            if (DEBUG) {
+                Log.d(TAG, command);
+            }
+
+            if (Utility.exec(command) != 0) {
+                stopMe();
+                return;
+            }
         }
 
         // Try to send the Fd through socket.

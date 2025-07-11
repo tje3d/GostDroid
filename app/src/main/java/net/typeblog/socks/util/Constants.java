@@ -18,7 +18,9 @@ public class Constants
             INTENT_APP_BYPASS = INTENT_PREFIX + "APPBYPASS",
             INTENT_APP_LIST = INTENT_PREFIX + "APPLIST",
             INTENT_IPV6_PROXY = INTENT_PREFIX + "IPV6",
-            INTENT_UDP_GW = INTENT_PREFIX + "UDPGW";
+            INTENT_UDP_GW = INTENT_PREFIX + "UDPGW",
+            INTENT_USE_GOST = INTENT_PREFIX + "USEGOST",
+            INTENT_GOST_TRANSPORT = INTENT_PREFIX + "GOSTTRANSPORT";
 
     public static final String PREF = "profile",
             PREF_PROFILE = "profile",
@@ -37,5 +39,7 @@ public class Constants
             PREF_ADV_PER_APP = "adv_per_app",
             PREF_ADV_APP_BYPASS = "adv_app_bypass",
             PREF_ADV_APP_LIST = "adv_app_list",
-            PREF_ADV_AUTO_CONNECT = "adv_auto_connect";
+            PREF_ADV_AUTO_CONNECT = "adv_auto_connect",
+            PREF_USE_GOST = "use_gost",
+            PREF_GOST_TRANSPORT = "gost_transport";
 }

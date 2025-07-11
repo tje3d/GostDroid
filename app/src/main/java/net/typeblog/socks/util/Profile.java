@@ -139,6 +139,22 @@ public class Profile {
         mPref.edit().putBoolean(key("auto"), auto).apply();
     }
 
+    public boolean useGost() {
+        return mPref.getBoolean(key("use_gost"), false);
+    }
+
+    public void setUseGost(boolean use) {
+        mPref.edit().putBoolean(key("use_gost"), use).apply();
+    }
+
+    public String getGostTransport() {
+        return mPref.getString(key("gost_transport"), "ws");
+    }
+
+    public void setGostTransport(String transport) {
+        mPref.edit().putString(key("gost_transport"), transport).apply();
+    }
+
     void delete() {
         mPref.edit()
                 .remove(key("server"))
@@ -156,6 +172,8 @@ public class Profile {
                 .remove(key("udp"))
                 .remove(key("udpgw"))
                 .remove(key("auto"))
+                .remove(key("use_gost"))
+                .remove(key("gost_transport"))
                 .apply();
     }
 

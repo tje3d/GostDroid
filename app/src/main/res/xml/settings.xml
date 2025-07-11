@@ -99,6 +99,19 @@
             <CheckBoxPreference
                 android:key="adv_auto_connect"
                 android:title="@string/adv_auto_connect"/>
+            <CheckBoxPreference
+                android:key="use_gost"
+                android:title="@string/use_gost"
+                android:summary="@string/use_gost_sum"
+                android:defaultValue="false"/>
+            <ListPreference
+                android:key="gost_transport"
+                android:title="@string/gost_transport"
+                android:summary="@string/gost_transport_sum"
+                android:entries="@array/gost_transports"
+                android:entryValues="@array/gost_transport_values"
+                android:defaultValue="ws"
+                android:dependency="use_gost"/>
         </PreferenceScreen>
     </PreferenceCategory>
 

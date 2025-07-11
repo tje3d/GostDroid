@@ -51,4 +51,9 @@
     <string name="notify_msg">Connected to %s</string>
     <string name="channel_name">Proxy active</string>
 
+    <string name="use_gost">Use Gost Tunnel</string>
+    <string name="use_gost_sum">Enable Gost tunnel for advanced transport protocols like WebSocket</string>
+    <string name="gost_transport">Gost Transport</string>
+    <string name="gost_transport_sum">Select the transport protocol for Gost tunnel</string>
+
 </resources>

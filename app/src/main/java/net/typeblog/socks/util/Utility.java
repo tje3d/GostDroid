@@ -120,7 +120,9 @@ public class Utility {
                 .putExtra(INTENT_DNS, profile.getDns())
                 .putExtra(INTENT_DNS_PORT, profile.getDnsPort())
                 .putExtra(INTENT_PER_APP, profile.isPerApp())
-                .putExtra(INTENT_IPV6_PROXY, profile.hasIPv6());
+                .putExtra(INTENT_IPV6_PROXY, profile.hasIPv6())
+                .putExtra(INTENT_USE_GOST, profile.useGost())
+                .putExtra(INTENT_GOST_TRANSPORT, profile.getGostTransport());
 
         if (profile.isUserPw()) {
             i.putExtra(INTENT_USERNAME, profile.getUsername())

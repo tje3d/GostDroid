@@ -9,4 +9,14 @@
         <item>all</item>
         <item>chn</item>
     </string-array>
+
+    <string-array name="gost_transports" translatable="false">
+        <item>WebSocket (ws)</item>
+        <item>WebSocket Secure (wss)</item>
+    </string-array>
+
+    <string-array name="gost_transport_values" translatable="false">
+        <item>ws</item>
+        <item>wss</item>
+    </string-array>
 </resources>

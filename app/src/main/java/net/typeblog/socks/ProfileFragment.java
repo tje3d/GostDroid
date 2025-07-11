@@ -69,10 +69,10 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
     };
     private IVpnService mBinder;
 
-    private ListPreference mPrefProfile, mPrefRoutes;
+    private ListPreference mPrefProfile, mPrefRoutes, mPrefGostTransport;
     private EditTextPreference mPrefServer, mPrefPort, mPrefUsername, mPrefPassword,
             mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW;
-    private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto;
+    private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto, mPrefUseGost;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -169,6 +169,13 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         } else if (p == mPrefAuto) {
             mProfile.setAutoConnect(Boolean.parseBoolean(newValue.toString()));
             return true;
+        } else if (p == mPrefUseGost) {
+            mProfile.setUseGost(Boolean.parseBoolean(newValue.toString()));
+            return true;
+        } else if (p == mPrefGostTransport) {
+            mProfile.setGostTransport(newValue.toString());
+            resetListN(mPrefGostTransport, newValue);
+            return true;
         } else {
             return false;
         }
@@ -210,6 +217,8 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefUDP = (CheckBoxPreference) findPreference(PREF_UDP_PROXY);
         mPrefUDPGW = (EditTextPreference) findPreference(PREF_UDP_GW);
         mPrefAuto = (CheckBoxPreference) findPreference(PREF_ADV_AUTO_CONNECT);
+        mPrefUseGost = (CheckBoxPreference) findPreference(PREF_USE_GOST);
+        mPrefGostTransport = (ListPreference) findPreference(PREF_GOST_TRANSPORT);
 
         mPrefProfile.setOnPreferenceChangeListener(this);
         mPrefServer.setOnPreferenceChangeListener(this);
@@ -227,6 +236,8 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefUDP.setOnPreferenceChangeListener(this);
         mPrefUDPGW.setOnPreferenceChangeListener(this);
         mPrefAuto.setOnPreferenceChangeListener(this);
+        mPrefUseGost.setOnPreferenceChangeListener(this);
+        mPrefGostTransport.setOnPreferenceChangeListener(this);
     }
 
     private void reload() {
@@ -238,7 +249,8 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefProfile.setEntryValues(mManager.getProfiles());
         mPrefProfile.setValue(mProfile.getName());
         mPrefRoutes.setValue(mProfile.getRoute());
-        resetList(mPrefProfile, mPrefRoutes);
+        mPrefGostTransport.setValue(mProfile.getGostTransport());
+        resetList(mPrefProfile, mPrefRoutes, mPrefGostTransport);
 
         mPrefUserpw.setChecked(mProfile.isUserPw());
         mPrefPerApp.setChecked(mProfile.isPerApp());
@@ -246,6 +258,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefIPv6.setChecked(mProfile.hasIPv6());
         mPrefUDP.setChecked(mProfile.hasUDP());
         mPrefAuto.setChecked(mProfile.autoConnect());
+        mPrefUseGost.setChecked(mProfile.useGost());
 
         mPrefServer.setText(mProfile.getServer());
         mPrefPort.setText(String.valueOf(mProfile.getPort()));
