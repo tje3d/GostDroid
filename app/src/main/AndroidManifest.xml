@@ -16,7 +16,7 @@
         android:fullBackupContent="@xml/backup_descriptor"
         android:dataExtractionRules="@xml/data_extraction_rules">
         <activity
-            android:name=".MainActivity"
+            android:name=".VpnMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +24,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".VpnMainActivity"/>
+
+        <activity
+            android:name=".ProfilesActivity"
+            android:exported="false"
+            android:parentActivityName=".VpnMainActivity"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"/>
 
         <service
             android:name=".SocksVpnService"

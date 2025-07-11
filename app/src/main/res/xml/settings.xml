@@ -3,7 +3,7 @@
         <PreferenceCategory
         android:selectable="false"
         android:title="@string/connection">
-                <EditTextPreference
+                <net.typeblog.socks.util.AppListPreference
             android:key="adv_app_list"
             android:title="@string/adv_app_list"
             android:summary="@string/adv_app_list_sum"

@@ -1,13 +1,7 @@
 package net.typeblog.socks;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.net.VpnService;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -16,62 +10,27 @@ import android.preference.ListPreference;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MenuInflater;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
+import net.typeblog.socks.util.AppListPreference;
 import net.typeblog.socks.util.Profile;
 import net.typeblog.socks.util.ProfileManager;
-import net.typeblog.socks.util.Utility;
 
 import java.util.Locale;
 
 import static net.typeblog.socks.util.Constants.*;
 
-public class ProfileFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener,
-        CompoundButton.OnCheckedChangeListener {
+public class ProfileFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
     private ProfileManager mManager;
     private Profile mProfile;
 
-    private Switch mSwitch;
-    private boolean mRunning = false;
-    private boolean mStarting = false, mStopping = false;
-    private final ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName p1, IBinder binder) {
-            mBinder = IVpnService.Stub.asInterface(binder);
-
-            try {
-                mRunning = mBinder.isRunning();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (mRunning) {
-                updateState();
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName p1) {
-            mBinder = null;
-        }
-    };
-    private final Runnable mStateRunnable = new Runnable() {
-        @Override
-        public void run() {
-            updateState();
-            mSwitch.postDelayed(this, 1000);
-        }
-    };
-    private IVpnService mBinder;
-
+    
     private ListPreference mPrefProfile, mPrefRoutes, mPrefGostTransport;
     private EditTextPreference mPrefServer, mPrefPort, mPrefUsername, mPrefPassword,
-            mPrefDns, mPrefDnsPort, mPrefAppList, mPrefUDPGW, mPrefGostServer;
+            mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefGostServer;
+    private AppListPreference mPrefAppList;
     private CheckBoxPreference mPrefUserpw, mPrefPerApp, mPrefAppBypass, mPrefIPv6, mPrefUDP, mPrefAuto, mPrefUseGost;
 
     @Override
@@ -87,13 +46,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main, menu);
-
-        MenuItem s = menu.findItem(R.id.switch_main);
-        mSwitch = s.getActionView().findViewById(R.id.switch_action_button);
-        mSwitch.setOnCheckedChangeListener(this);
-        mSwitch.postDelayed(mStateRunnable, 1000);
-        checkState();
+        // Connect button removed from settings page
     }
 
     @Override
@@ -185,25 +138,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         }
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton p1, boolean checked) {
-        if (checked) {
-            startVpn();
-        } else {
-            stopVpn();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-            Utility.startVpn(getActivity(), mProfile);
-            checkState();
-        }
-    }
-
+    
     private void initPreferences() {
         mPrefProfile = (ListPreference) findPreference(PREF_PROFILE);
         mPrefServer = (EditTextPreference) findPreference(PREF_SERVER_IP);
@@ -216,7 +151,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefDnsPort = (EditTextPreference) findPreference(PREF_ADV_DNS_PORT);
         mPrefPerApp = (CheckBoxPreference) findPreference(PREF_ADV_PER_APP);
         mPrefAppBypass = (CheckBoxPreference) findPreference(PREF_ADV_APP_BYPASS);
-        mPrefAppList = (EditTextPreference) findPreference(PREF_ADV_APP_LIST);
+        mPrefAppList = (AppListPreference) findPreference(PREF_ADV_APP_LIST);
         mPrefIPv6 = (CheckBoxPreference) findPreference(PREF_IPV6_PROXY);
         mPrefUDP = (CheckBoxPreference) findPreference(PREF_UDP_PROXY);
         mPrefUDPGW = (EditTextPreference) findPreference(PREF_UDP_GW);
@@ -276,7 +211,7 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
         mPrefGostServer.setText(mProfile.getGostServer());
         resetText(mPrefServer, mPrefPort, mPrefUsername, mPrefPassword, mPrefDns, mPrefDnsPort, mPrefUDPGW, mPrefGostServer);
 
-        mPrefAppList.setText(mProfile.getAppList());
+        mPrefAppList.setValue(mProfile.getAppList());
     }
 
     private void resetList(ListPreference... pref) {
@@ -367,70 +302,4 @@ public class ProfileFragment extends PreferenceFragment implements Preference.On
                 .create().show();
     }
 
-    private void checkState() {
-        mRunning = false;
-        mSwitch.setEnabled(false);
-        mSwitch.setOnCheckedChangeListener(null);
-
-        if (mBinder == null) {
-            getActivity().bindService(new Intent(getActivity(), SocksVpnService.class), mConnection, 0);
-        }
     }
-
-    private void updateState() {
-        if (mBinder == null) {
-            mRunning = false;
-        } else {
-            try {
-                mRunning = mBinder.isRunning();
-            } catch (Exception e) {
-                mRunning = false;
-            }
-        }
-
-        mSwitch.setChecked(mRunning);
-
-        if ((!mStarting && !mStopping) || (mStarting && mRunning) || (mStopping && !mRunning)) {
-            mSwitch.setEnabled(true);
-        }
-
-        if (mStarting && mRunning) {
-            mStarting = false;
-        }
-
-        if (mStopping && !mRunning) {
-            mStopping = false;
-        }
-
-        mSwitch.setOnCheckedChangeListener(ProfileFragment.this);
-    }
-
-    private void startVpn() {
-        mStarting = true;
-        Intent i = VpnService.prepare(getActivity());
-
-        if (i != null) {
-            startActivityForResult(i, 0);
-        } else {
-            onActivityResult(0, Activity.RESULT_OK, null);
-        }
-    }
-
-    private void stopVpn() {
-        if (mBinder == null)
-            return;
-
-        mStopping = true;
-
-        try {
-            mBinder.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        mBinder = null;
-
-        getActivity().unbindService(mConnection);
-        checkState();
-    }
-}

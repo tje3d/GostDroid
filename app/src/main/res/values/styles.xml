@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="@android:style/Theme.Material">
-        <item name="android:colorPrimary">#9C27B0</item>
-        <item name="android:colorPrimaryDark">#9C27B0</item>
-        <item name="android:colorAccent">#FFC107</item>
+        <item name="android:colorPrimary">@color/btn_connect_normal</item>
+        <item name="android:colorPrimaryDark">@color/btn_connect_pressed</item>
+        <item name="android:colorAccent">@color/text_accent</item>
+        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:navigationBarColor">@color/background_color</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 </resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Background Colors -->
+    <color name="background_color">#0F0F23</color>
+    <color name="background_secondary">#1A1A2E</color>
+    <color name="card_background">#16213E</color>
+    <color name="card_background_elevated">#1E2749</color>
+    <color name="card_border">#2A3B5C</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#8B9DC3</color>
+    <color name="text_accent">#00D4FF</color>
+    
+    <!-- Circle Colors -->
+    <color name="circle_outer_color">#2A3B5C</color>
+    <color name="circle_inner_color">#1E2749</color>
+    <color name="circle_glow">#00D4FF</color>
+    
+    <!-- Connect Button Colors -->
+    <color name="btn_connect_normal">#00D4FF</color>
+    <color name="btn_connect_pressed">#00B8E6</color>
+    <color name="btn_connect_border">#0099CC</color>
+    <color name="btn_connect_glow">#4D00D4FF</color>
+    
+    <!-- Disconnect Button Colors -->
+    <color name="btn_disconnect_normal">#FF4757</color>
+    <color name="btn_disconnect_pressed">#FF3742</color>
+    <color name="btn_disconnect_border">#E63946</color>
+    <color name="btn_disconnect_glow">#4DFF4757</color>
+    
+    <!-- Secondary Button Colors -->
+    <color name="btn_secondary_normal">#1E2749</color>
+    <color name="btn_secondary_pressed">#2A3B5C</color>
+    <color name="btn_secondary_border">#3A4B6C</color>
+    
+    <!-- Icon Button Colors -->
+    <color name="btn_icon_normal">#16213E</color>
+    <color name="btn_icon_pressed">#1E2749</color>
+    <color name="btn_icon_border">#2A3B5C</color>
+    
+    <!-- Icon Color -->
+    <color name="icon_color">#8B9DC3</color>
+    <color name="icon_color_active">#00D4FF</color>
+    
+    <!-- Status Colors -->
+    <color name="status_connected">#00D4FF</color>
+    <color name="status_disconnected">#8B9DC3</color>
+    <color name="status_connecting">#FFA726</color>
+    
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#0F0F23</color>
+    <color name="gradient_end">#1A1A2E</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent_purple">#7C4DFF</color>
+    <color name="accent_green">#00E676</color>
+    <color name="accent_orange">#FF9800</color>
+</resources>
